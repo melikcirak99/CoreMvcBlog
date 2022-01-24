@@ -1,0 +1,63 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Comment>
+
+@{
+    ViewData["Title"] = "InActiveComments";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section adminstyles{}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                yorum
+            </th>
+            <th>
+                tarih
+            </th>
+            <th>
+                güncellenme tarihi
+            </th>
+            <th>
+                onay durumu
+            </th>
+            <th>
+                kullanıcı
+            </th>
+            <th>
+                gönderi
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @item.IsApproved
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.PostId)
+            </td>
+            <td>
+                <a href="/admin/yorum-kurtar/@item.CommentId" class="btn btn-info">kurtar</a>
+                <a href="/admin/yorum-sil/@item.CommentId" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section adminscript{}

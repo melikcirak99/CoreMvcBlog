@@ -1,0 +1,140 @@
+﻿@using EntityLayer.Concrete
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+<!doctype html>
+<html lang="tr">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!--- google fonts --->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+
+
+
+
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!--- fontawesome --->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
+    <!--- custom css --->
+    <link rel="stylesheet" type="text/css" href="/Materials/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/Materials/css/style.min.css">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="page">
+        <!-- header -->
+        <header id="header">
+            <div class="main-nav" id="navbar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            @await Component.InvokeAsync("GetCategoriesToMenu")
+                        </div>
+
+                        @if (Context.Session.GetString("user") != null)
+                        {
+                            User user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("user"));
+                            
+                            <div class="col-6" style="position:absolute;right:-100px;top:10px;">
+                                <a href="/profilim/@user.UserId" class="btn btn-secondary">Profil</a>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </header><!-- end header -->
+        @RenderBody()
+
+        @await Component.InvokeAsync("BestOfTheWeek",new{count=6})
+
+        <!--- FOOTER --->
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="footer-column">
+                            <h4 class="column-title">Hakkımızda</h4>
+                            <div class="title-border"></div>
+                            <div class="row">
+                                <div class="col-md-12 pt-3 f-logo">
+                                    <a href="index.html"><img src="/Materials/images/logo/BOOTRY_LOGO_DARK.svg" width="150"></a>
+                                    <div class="pt-4">
+                                        <p>lorem ipsum dolor sit amet consectur</p>
+                                        <div class="btn btn-primary" style="width: 100px;">About Us</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="footer-column newsletter">
+                            <h4 class="column-title">newsletter</h4>
+                            <div class="title-border"></div>
+                            <p class="p-2 mt-3 text-capitalize">Ücretsiz Bültene Katıl</p>
+                            <form>
+
+                                <div class="group mt-5">
+                                    <input type="text" required>
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>Name</label>
+                                </div>
+
+                                <div class="group">
+                                    <input type="text" required>
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>Email</label>
+                                </div>
+                                <input type="submit" class="btn btn-primary">
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="footer-column f-most-popular">
+                            <h4 class="column-title">most popular posts</h4>
+                            <div class="title-border"></div>
+                            <div class="row">
+                                @await Component.InvokeAsync("FooterMostPopularPosts")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer><!-- FOOTER END -->
+
+    </div>
+
+    <!-- Back to top button -->
+    <a id="button">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- jQueryUI (necessary for Slidenav plugin) -->
+    <!--script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- owl carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="/Materials/js/theme.js"></script>
+    <script>
+        $(".carousel-item").first().addClass("active");
+    </script>
+</body>
+</html>

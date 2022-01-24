@@ -1,0 +1,40 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section adminstyles{
+}
+<br />
+<p>
+    <a href="/admin/kategori-ekle" class="btn btn-primary">Ekle</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            İSİM
+        </th>
+        <th>
+            DÜZENLE
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.CategoryName
+            </td>
+            <td>
+                <a href="/admin/kategori-duzenle/@item.CategoryId" class="btn btn-warning">düzenle</a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@section adminscript{
+}

@@ -1,0 +1,46 @@
+﻿@using EntityLayer.Concrete;
+@model IEnumerable<Post>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+    <table class="display table table-bordered" id="example">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>başlık</td>
+                <td>tarih</td>
+                <td>okunma sayısı</td>
+                <td>kategori</td>
+                <td>yazar</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.PostId</td>
+                    <td>
+                        @{
+                            if (post.PostTitle.Length >= 50)
+                            {
+                                @post.PostTitle.Substring(0, 49);<span>...</span>
+                            }
+                            else
+                            {
+                                @post.PostTitle
+                            }
+                        }
+                    </td>
+                    <td>@post.PostCreatedTime</td>
+                    <td>@post.PostView</td>
+                    <td>@post.Category.CategoryName</td>
+                    <td>@post.Writer.WriterFirstName @post.Writer.WriterLastName</td>
+                    <td>
+                        <a href="/admin/updatepost/@post.PostId" class="btn btn-success">Düzenle</a>
+                        <a href="/admin/cope-at/@post.PostId" class="btn btn-danger">sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

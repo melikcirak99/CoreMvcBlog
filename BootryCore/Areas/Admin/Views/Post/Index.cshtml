@@ -1,0 +1,181 @@
+﻿@using EntityLayer.Concrete
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+
+@model IEnumerable<Post>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+
+    bool IsAdminLogin = false;
+    bool IsWriterLogin = false;
+    int WriterId = 0;
+
+    if (Context.Session.GetString("admin") != null)
+    {
+        IsAdminLogin = true;
+    }
+    if (Context.Session.GetString("writer") != null)
+    {
+        IsWriterLogin = true;
+        Writer w = JsonConvert.DeserializeObject<Writer>(Context.Session.GetString("writer"));
+        WriterId = w.WriterId;
+    }
+
+
+
+}
+@section adminstyles{
+}
+
+@*<button class="btn btn-primary" id="btn1">gönderiler jquery</button>*@
+
+@if (IsAdminLogin)
+{
+    <br />
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+        <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>
+                        @await Component.InvokeAsync("GetUserCount")
+                    </h3>
+
+                    <p>Kullanıcı sayısı</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+    <div class="col-lg-3 col-6">
+            <!-- small box -->
+        <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>
+                        @await Component.InvokeAsync("PostCount")
+                    </h3>
+
+                    <p>Aktif Gönderiler</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+    <div class="col-lg-3 col-6">
+            <!-- small box -->
+        <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>
+                        @await Component.InvokeAsync("PostViewSum")
+                    </h3>
+
+                    <p>Toplam gönderi görüntülemesi</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+    <div class="col-lg-3 col-6">
+            <!-- small box -->
+        <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>
+                        @await Component.InvokeAsync("CommentCount")
+                    </h3>
+
+                    <p>yorum sayısı</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+</div>
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <!-- /.card-header -->
+            @if (IsAdminLogin)
+            {
+                @await Component.InvokeAsync("AllPosts")
+            }
+
+            @if (IsWriterLogin)
+            {
+                <br />
+               @await Component.InvokeAsync("PostByWriter",new{writerId=WriterId})
+            }
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+<div class="row">
+    <!-- /.col -->
+    @if (IsAdminLogin)
+    {
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">kategoriler</h3>
+                </div>
+                <!-- /.card-header -->
+            <div class="card-body p-0">
+                    @await Component.InvokeAsync("GetCategories")
+                </div>
+                <!-- /.card-body -->
+        </div>
+        </div>
+    }
+    <!-- /.col -->
+    <!-- /.col -->
+    @if (IsAdminLogin)
+    {
+         @await Component.InvokeAsync("WriterList")
+    }
+    <!-- /.col -->
+</div>
+
+
+
+
+
+@section adminscript{
+<script>
+    $("#btn1").click(function(){
+        $.ajax({
+            contentType:"application/json",
+            dataType:"json",
+            type:"Get",
+            url:"/admin/GetAllPostsToJson",
+            success:function(func){
+                let w = JSON.parse(func);
+                var tableHtml = `<table class="table table-bordered"><thead><tr><th>#</th><th>ad</th><th>görüntüleme</th><th>yazar</th></tr></thead><tbody>`;
+                $.each(w,(index,value)=>{
+                    tableHtml += `
+                    <tr>
+                      <td>${value.id}</td>
+                      <td>${value.title}</td>
+                      <td>${value.viewCount}</td>
+                      <td>${value.fullName}</td>
+                    </tr>`
+                });
+                tableHtml += `</tbody></table>`;
+                $("#div1").html(tableHtml);
+            }
+        });
+    });
+</script>
+}

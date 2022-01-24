@@ -1,0 +1,46 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Post>
+
+<div class="col-md-6 most-popular">
+    <div class="Carousel">
+        <div class="row mt-4">
+            <div class="col-6">
+                <h5 class="title">popüler</h5>
+                <div class="title-border"></div>
+            </div>
+            <div class="col-6 text-right">
+                <div class="carousel-nav" id="hot-news-nav">
+                    <div class="btn btn-primary prev">
+                        <i class="fas fa-caret-left"></i>
+                    </div>
+                    <div class="btn btn-primary next">
+                        <i class="fas fa-caret-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-col vertical-slider" data-max="4" data-nav="#hot-news-nav" data-item="article">
+
+        @foreach (var post in Model)
+        {
+            <article class="article-mini">
+                <div class="card mb-3 pl-3 inner" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 mt-4">
+                            <img src="~/Materials/images/news/@post.PostImage" class="card-img">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="badge badge-primary mr-1">@post.Category.CategoryName</span>@post.PostTitle</h5>
+                                <p class="card-text"> @post.PostCreatedTime.ToString("dd/mm/yyyy") </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        }
+
+    </div>
+</div>

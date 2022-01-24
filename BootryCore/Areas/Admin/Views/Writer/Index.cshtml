@@ -1,0 +1,62 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Writer>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section adminstyles{
+}
+<br />
+<a href="/admin/yazar-ekle" class="btn btn-primary">Ekle</a>
+
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WriterFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WriterLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WriterMail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WriterPassword)
+            </th>
+            <th>
+                durum
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WriterFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WriterLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WriterMail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WriterPassword)
+                </td>
+                <td>
+                    @item.IsActive
+                </td>
+                <td>
+                    <a href="/admin/yazar-duzenle/@item.WriterId" class="btn btn-info"> Düzenle</a>
+                    <a href="/admin/yazar-sil/@item.WriterId" class="btn btn-danger"> sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section adminscript{
+}

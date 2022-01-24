@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Setting>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section adminstyles{}
+
+<br />
+<a href="/admin/ayar-ekle" class="btn btn-primary">ekle</a>
+<br />
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                ayar
+            </th>
+            <th>
+                değer
+            </th>
+            <th>
+                Düzenle
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SettingId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SettingName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SettingValue)
+            </td>
+            <td>
+                <a href="/admin/ayar/@item.SettingId" class="btn btn-info">Düzenle</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section adminscript{}

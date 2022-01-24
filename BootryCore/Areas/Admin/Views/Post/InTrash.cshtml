@@ -1,0 +1,105 @@
+﻿@using EntityLayer.Concrete;
+@model IEnumerable<Post>
+
+@{
+    ViewData["Title"] = "InTrash";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section adminstyles{}
+<br />
+<table class="table table-bordered">
+    <tr>
+        <td>
+            başlık
+        </td>
+        <td>
+            durum
+        </td>
+        <td>
+            eklenme
+        </td>
+        <td>
+            güncelleme
+        </td>
+        <td>
+            okunma
+        </td>
+        <td>
+            kategori
+        </td>
+        <td>
+            yazar
+        </td>
+        <td>
+            kurtar
+        </td>
+        <td>
+            sil
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.PostTitle
+            </td>
+            <td>
+                @item.IsActive
+            </td>
+            <td>
+                @item.PostCreatedTime
+            </td>
+            <td>
+                @item.PostUpdatedTime
+            </td>
+            <td>
+                @item.PostView
+            </td>
+            <td>
+                @item.Category.CategoryName
+            </td>
+            <td>
+                @item.Writer.WriterFirstName @item.Writer.WriterLastName 
+            </td>
+            <td>
+                <a class="btn btn-success" href="/admin/copten-cikar/@item.PostId">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </td>
+            <td>
+                <a href="#" type="button" class="btn btn-danger" data-toggle="modal" data-target="@("#model"+item.PostId)">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+
+        </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="@("model"+item.PostId)" tabindex="-1" aria-labelledby="@("model"+item.PostId)" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="@("model"+item.PostId)">
+                            gönderi kalıcıolarak silinecek!!
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @item.PostTitle silinsin mi?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">iptal</button>
+                        <a href="/admin/kalici-sil/@item.PostId" class="btn btn-danger text-white">Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</table>
+
+
+
+@section adminscript{}

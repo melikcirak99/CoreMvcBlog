@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using EntityLayer.Concrete
+@model IEnumerable<Comment>
+
+<style>
+    .comments i.fas {
+        opacity: 0.5;
+    }
+</style>
+@foreach (var comment in Model)
+{
+    if (comment.IsApproved == true)
+    {
+        <div class="comments card p-2 mb-2">
+            <div class="row">
+                <div class="col-3">
+                    <img src="/Materials/images/profile.png" width="100" height="100" style="border-radius: 50%;">
+                </div>
+                <div class="col-9">
+                    <div class="info">
+                        <i class="fas fa-user"></i> @comment.User.UserFirstName @comment.User.UserLastName  <i class="fas fa-calendar ml-1"></i> @comment.CreateDate.ToString("dd/MMMM/yyyy HH:mm")
+                    </div>
+                    <div class="comment p-2">
+                        @comment.CommentContent
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        if (Context.Session.GetString("user") != null)
+        {
+            Comment comm = JsonConvert.DeserializeObject<Comment>(Context.Session.GetString("user"));
+
+            if (comm.UserId == comment.UserId)
+            {
+                <div class="comments card p-2 mb-2">
+                    <span class="p-2">Burayı sadece sen görebilirsin.. <span class="text-info">Yorumun onay bekliyor</span></span>
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="/Materials/images/profile.png" width="100" height="100" style="border-radius: 50%;">
+                        </div>
+                        <div class="col-9">
+                            <div class="info">
+                                <i class="fas fa-user"></i> @comment.User.UserFirstName   <i class="fas fa-calendar ml-1"></i> @comment.CreateDate.ToString("dd/MMMM/yyyy HH:mm")
+                            </div>
+                            <div class="comment p-2">
+                                @comment.CommentContent
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+

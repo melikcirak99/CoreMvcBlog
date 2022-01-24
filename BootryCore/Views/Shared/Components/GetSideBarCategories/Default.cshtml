@@ -1,0 +1,20 @@
+﻿@using EntityLayer.Concrete;
+@model IEnumerable<Category>
+
+<div class="sidebar-element">
+    <div class="element-title">
+        <h4>Categories</h4>
+    </div>
+    <div class="element-item">
+        <ul>
+            @foreach(var item in Model)
+            {
+             <li class="purple">
+                <a href="/kategori/@item.CategoryName">@item.CategoryName (@item.Posts.Count)</a>
+                <span class="kayan purple"></span>
+            </li>   
+            }
+            
+        </ul>
+    </div>
+</div>

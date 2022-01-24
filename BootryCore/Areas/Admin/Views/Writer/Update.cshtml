@@ -1,0 +1,52 @@
+﻿@model EntityLayer.Concrete.Writer
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section adminstyles{
+}
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/admin/yazar-duzenle" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WriterId" />
+            <div class="form-group">
+                <label asp-for="WriterFirstName" class="control-label"></label>
+                <input asp-for="WriterFirstName" class="form-control" />
+                <span asp-validation-for="WriterFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterLastName" class="control-label"></label>
+                <input asp-for="WriterLastName" class="form-control" />
+                <span asp-validation-for="WriterLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterMail" class="control-label"></label>
+                <input asp-for="WriterMail" class="form-control" />
+                <span asp-validation-for="WriterMail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterPassword" class="control-label"></label>
+                <input asp-for="WriterPassword" class="form-control" />
+                <span asp-validation-for="WriterPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> durum
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section adminscript{
+}

@@ -1,0 +1,21 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Category>
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00d2d3;">
+    <a class="navbar-brand" href="/">
+        @ViewBag.siteBrand
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            @foreach (var item in Model)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="/kategori/@item.CategoryName">@item.CategoryName</a>
+                </li>
+            }
+        </ul>
+    </div>
+</nav>

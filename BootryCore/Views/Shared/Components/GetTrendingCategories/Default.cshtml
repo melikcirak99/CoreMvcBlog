@@ -1,0 +1,13 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Category>
+<div class="line">
+    <div>trending categories</div>
+</div>
+<ul class="cat">
+    @foreach (var item in Model)
+    {
+        <li class="@item.CategoryIcon">
+            <a href="">@item.CategoryName</a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,22 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Category>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 10px">#</th>
+            <th>isim</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var cat in Model)
+        {
+            <tr>
+                <td>@cat.CategoryId</td>
+                <td>@cat.CategoryName</td>
+            </tr>
+        }
+    </tbody>
+</table>

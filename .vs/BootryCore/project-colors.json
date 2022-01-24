@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "09f5ccad-2e9b-4837-82a7-a79fb9e45262": {
+      "ProjectGuid": "09f5ccad-2e9b-4837-82a7-a79fb9e45262",
+      "DisplayName": "BootryCore",
+      "ColorIndex": 0
+    },
+    "68ea8860-76db-4ba4-8b53-d61f945b9b25": {
+      "ProjectGuid": "68ea8860-76db-4ba4-8b53-d61f945b9b25",
+      "DisplayName": "DataAccessLayer",
+      "ColorIndex": 1
+    },
+    "a4ada888-5023-4d10-b147-b7613e09910c": {
+      "ProjectGuid": "a4ada888-5023-4d10-b147-b7613e09910c",
+      "DisplayName": "EntityLayer",
+      "ColorIndex": 2
+    },
+    "7ba42a49-073b-46c2-8fd5-59922518fff6": {
+      "ProjectGuid": "7ba42a49-073b-46c2-8fd5-59922518fff6",
+      "DisplayName": "BusinessLayer",
+      "ColorIndex": 3
+    },
+    "0467ce9a-9658-4500-89c3-cb0e5efaeeed": {
+      "ProjectGuid": "0467ce9a-9658-4500-89c3-cb0e5efaeeed",
+      "DisplayName": "EntityLayer",
+      "ColorIndex": 4
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 5
+}

@@ -1,0 +1,211 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using EntityLayer.Concrete
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = null;
+
+}
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link href="~/AdminMaterials/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/AdminMaterials/dist/css/adminlte.min.css" rel="stylesheet" />
+    @await RenderSectionAsync("adminstyles")
+</head>
+<body class="hold-trans***ition sidebar-mini">
+
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/admin" class="nav-link">ana sayfa</a>
+                </li>
+            </ul>
+            <!-- Right navbar links -->
+            @await Component.InvokeAsync("ContactNotifications")
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/admin" class="brand-link">
+                <img src="/Materials/images/logo/BOOTRY_LOGO.svg" alt="Logo" class="brand-image  elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">Bootry</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                @if (Context.Session.GetString("writer") != null)
+                {
+                    Writer writer = JsonConvert.DeserializeObject<Writer>(Context.Session.GetString("writer"));
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/AdminMaterials/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">
+                                @writer.WriterFirstName
+                            </a>
+                        </div>
+                    </div>
+                }
+
+                @if (Context.Session.GetString("user") != null)
+                {
+                    User user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("user"));
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/Materials/images/profile.png" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">
+                                @user.UserFirstName
+                            </a>
+                        </div>
+                    </div>
+                }
+                <!-- Sidebar Menu -->
+                <nav class="mt-2 text-capitalize">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                        @if (Context.Session.GetString("admin") != null || Context.Session.GetString("writer") != null)
+                        {
+                            <li class="nav-item">
+                                <a href="/admin/addpost" class="nav-link">
+                                    <i class="nav-icon fas fa-plus"></i>
+                                    <p>
+                                        Yeni gönderi ekle
+                                        <span class="right badge badge-success">ekle</span>
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                        @if (Context.Session.GetString("admin") != null)
+                        {
+                            <li class="nav-item">
+                                <a href="/admin/post/intrash" class="nav-link">
+                                    <i class="nav-icon fas fa-trash"></i>
+                                    <p>
+                                        çöp kutusu
+                                        <span class="right badge badge-warning">
+                                            @await Component.InvokeAsync("PostsInTrushCount")
+                                        </span>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/admin/onay-bekleyen-yorumlar" class="nav-link">
+                                    <i class="nav-icon fas fa-ban"></i>
+                                    <p>
+                                        onaysız yorumlar
+                                        <span class="right badge badge-info">
+                                            @await Component.InvokeAsync("InActiveCommentsCount")
+                                        </span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/kategori" class="nav-link">
+                                    <i class="nav-icon fas fa-list-alt"></i>
+                                    <p>
+                                        kategoriler
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/yazar" class="nav-link">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>
+                                        yazarlar
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/kullanici" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        kullanıcılar
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/ayarlar" class="nav-link">
+                                    <i class="nav-icon fas fa-cog"></i>
+                                    <p>
+                                        ayarlar
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content">
+                @RenderBody()
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="float-right d-none d-sm-inline">
+                Anything you want
+            </div>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="~/AdminMaterials/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/AdminMaterials/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/AdminMaterials/dist/js/adminlte.min.js"></script>
+    @*    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <script>
+        $(document).ready(function () {
+        $('#example').DataTable({
+        "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Turkish.json"
+        }
+        });
+        });
+        </script>*@
+
+    @await RenderSectionAsync("adminscript")
+</body>
+</html>

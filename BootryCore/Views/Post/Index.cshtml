@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = ViewBag.SiteName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12 mt-5">
+
+                @*carousel*@
+                @await Component.InvokeAsync("Carousel", new{count=5})
+
+                @*latest news section*@
+                @await Component.InvokeAsync("LatestNews")
+
+                @*by a category section*@
+                @await Component.InvokeAsync("GetPostsByCategory",new {categoryId=ViewBag.ByCategorySectionValue})
+
+
+                @*Trending Now section*@
+                @await Component.InvokeAsync("TrendingNow", new {count=4})
+
+
+
+                <div class="row">
+                    <div class="col-md-6 trending-section">
+                      
+                        @await Component.InvokeAsync("GetTrendingTags")
+                        @await Component.InvokeAsync("GetTrendingCategories")
+                        
+                    </div>
+
+                    @await Component.InvokeAsync("MostPopular")
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12 mt-5">
+                <div class="row">
+                    <div class="col-12 mb-5 mt-5 sidebar">
+                        @await Component.InvokeAsync("GetSideBarCategories",new {count = 5})
+                        
+                        <div class="sidebar-element other">
+                            <div class="element-title">
+                                <h4 class="side-search">sitede arayın</h4>
+                            </div>
+                            <div class="element-item">
+                                <form class="form-wrapper cf" action="/post/search">
+                                    <input type="text" placeholder="Sitede arayın..." name="src" required>
+                                    <button type="submit">ara</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

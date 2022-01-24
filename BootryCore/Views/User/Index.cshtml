@@ -1,0 +1,117 @@
+﻿@model EntityLayer.Concrete.User
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section adminstyles{}
+
+<br />
+  <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profil</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Profil</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+        <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="~/Materials/images/profile.png"
+                       alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center">@ViewBag.user.UserFirstName @ViewBag.user.UserLastName</h3>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  
+                  <div class="active" id="settings">
+                    
+                      <form class="form-horizontal" action="/kullanici-duzenle" method="post">
+                          <div asp-validation-summary="ModelOnly"></div>
+                          <input type="hidden"  asp-for="UserId" value="@Model.UserId"/>
+                          <input type="hidden" asp-for="IsActive"/>
+                        
+                      <div class="form-group row">
+                        <label for="UserFirstName" class="col-sm-2 col-form-label">İsim</label>
+                        <div class="col-sm-10">
+                          <input asp-for="UserFirstName" class="form-control" placeholder="Name">
+                            <span asp-validation-for="UserFirstName"></span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="UserLastName" class="col-sm-2 col-form-label">Soyadı</label>
+                        <div class="col-sm-10">
+                          <input asp-for="UserLastName" class="form-control" placeholder="soyadı">
+                          <span asp-validation-for="UserLastName"></span>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="UserMail" class="col-sm-2 col-form-label">Mail</label>
+                        <div class="col-sm-10">
+                          <input asp-for="UserMail" class="form-control" placeholder="mail">
+                          <span asp-validation-for="UserMail"></span>
+                        </div>
+                      </div>  
+                      
+                      <div class="form-group row">
+                        <label for="UserPassword" class="col-sm-2 col-form-label">Şifre</label>
+                        <div class="col-sm-10">
+                          <input asp-for="UserPassword" class="form-control" placeholder="şifre">
+                          <span asp-validation-for="UserPassword"></span>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Kaydet</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+@section adminscript{}

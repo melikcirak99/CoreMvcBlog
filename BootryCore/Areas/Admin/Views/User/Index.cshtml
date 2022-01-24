@@ -1,0 +1,62 @@
+﻿@model IEnumerable<EntityLayer.Concrete.User>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section adminstyles{
+}
+<br />
+<a href="/admin/kullanici-ekle" class="btn btn-primary">Ekle</a>
+
+<br />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserMail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPassword)
+            </th>
+            <th>
+                durum
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserMail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserPassword)
+                </td>
+                <td>
+                    @item.IsActive
+                </td>
+                <td>
+                    <a href="/admin/kullanici-duzenle/@item.UserId" class="btn btn-info"> Düzenle</a>
+                    <a href="/admin/kullanici-sil/@item.UserId" class="btn btn-danger"> sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section adminscript{
+}

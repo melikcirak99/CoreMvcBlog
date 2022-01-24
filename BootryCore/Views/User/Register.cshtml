@@ -1,0 +1,71 @@
+﻿@model EntityLayer.Concrete.User
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" type="text/css" href="/Materials/css/pages.css">
+
+<section id="main" class="register">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="login-form mt-5 mb-5">
+                    <div class="pagenav">
+                        <ul>
+                            <li>
+                                <a href="">home</a>
+                            </li>
+                            <li>register account</li>
+                        </ul>
+                    </div>
+                    <div class="description">
+                        <p class="text-center text-capitalize text-dark">create a new account...</p>
+                    </div>
+                    <form action="/kullanici-kayit" method="post">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <input asp-for="UserFirstName" placeholder="isim" class="form-control" />
+                                <span class="namebefore">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <span asp-validation-for="UserFirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <input asp-for="UserLastName" placeholder="soyisim" class="form-control" />
+                                <span class="namebefore">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <span asp-validation-for="UserLastName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <input asp-for="UserMail" placeholder="mail" class="form-control" />
+                                <span class="namebefore">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <span asp-validation-for="UserMail" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="col-md-12 mb-3">
+                                <input asp-for="UserPassword" placeholder="şifre" class="form-control" />
+                                <span class="namebefore">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                                <span asp-validation-for="UserPassword" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <button class="btn btn-secondary float-left" type="submit">Gönder</button>
+                        <a href="/giris-kullanici" class="btn float-right">Hesabım var</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

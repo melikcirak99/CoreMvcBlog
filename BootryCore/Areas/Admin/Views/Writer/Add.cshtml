@@ -1,0 +1,45 @@
+﻿@model EntityLayer.Concrete.Writer
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section adminstyles{
+}
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form action="/admin/yazar-ekle" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WriterFirstName" class="control-label"></label>
+                <input asp-for="WriterFirstName" class="form-control" />
+                <span asp-validation-for="WriterFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterLastName" class="control-label"></label>
+                <input asp-for="WriterLastName" class="form-control" />
+                <span asp-validation-for="WriterLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterMail" class="control-label"></label>
+                <input asp-for="WriterMail" class="form-control" />
+                <span asp-validation-for="WriterMail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WriterPassword" class="control-label"></label>
+                <input asp-for="WriterPassword" class="form-control" />
+                <span asp-validation-for="WriterPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@section adminscript{
+}
+
+

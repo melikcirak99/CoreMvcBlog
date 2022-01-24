@@ -1,0 +1,127 @@
+﻿@using EntityLayer.Concrete
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@model Post
+@{
+    ViewData["Title"] = Model.PostTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Post prev;
+    Post next;
+    int PostID = Convert.ToInt32(Model.PostId);
+    int UId=0;
+    if (Context.Session.GetString("user") != null)
+    {
+        User user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("user"));
+        UId = user.UserId;
+    }
+}
+
+<!--- MAİN --->
+<section id="main" class="single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12 mt-5 mb-5">
+                <div class="post">
+
+                    <div class="title">
+                        <div class="title-border"></div>
+                        <h1>@Model.PostTitle</h1>
+                    </div>
+                    <div class="pagenav">
+                        <ul>
+                            <li><a href="">home</a></li>
+                            <li><a href="category.html">@Model.Category.CategoryName</a></li>
+                            <li>@Model.PostSeoTitle</li>
+                        </ul>
+                    </div>
+                    <div class="post-details">
+                        <span><i class="fas fa-eye"></i> @Model.PostView</span>
+                        <span class="time"><a href="#"><i class="fas fa-clock"></i> @Model.PostCreatedTime.ToString("dd/MMMM/yyyyy")</a></span>
+                        <span class="time"><a href="#"><i class="fas fa-user-circle"></i> BY @Model.Writer.WriterFirstName @Model.Writer.WriterLastName</a></span>
+                    </div>
+                    <div class="post-p">
+                        <p>
+                            <img src="~/Materials/images/news/@Model.PostImage" />
+                        </p>
+                        <p>
+                            @Html.Raw(Model.PostContent)
+                        </p>
+                    </div>
+                </div>
+                <div class="post-nav">
+                    <div class="row">
+                        <div class="prev-post col-md-6 col-sm-12 col-xs-12">
+                            @if (ViewBag.Prev != null)
+                            {
+                                { prev = ViewBag.Prev; }
+                                <a href="/@prev.Category.CategoryName/@prev.PostSeoTitle/@prev.PostId"><span class="post-nav-icon"><i class="fas fa-arrow-left"></i></span>Önceki gönderi</a>
+                                <div>
+                                    <p>
+                                        @prev.PostTitle
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                        <div class="next-post col-md-6 col-sm-12 col-xs-12">
+                            @if (ViewBag.Next != null)
+                            {
+                                { next = ViewBag.Next; }
+                                <a href="/@next.Category.CategoryName/@next.PostSeoTitle/@next.PostId">Sonraki gönderi <span class="post-nav-icon"><i class="fas fa-arrow-right"></i></span></a>
+                                <div>
+                                    <p>
+                                        @next.PostTitle
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                @await Component.InvokeAsync("CommentsByPost",new {postId=PostID})
+                <div class="card p-2 mt-2">
+                    <div class="col-12">
+                        <form action="/yorum-ekle" method="post"  class="mt-1 p-2">
+                            @{
+                                int pID = PostID;
+                            }
+                            <input type="hidden" name="UserId" value="@UId"/>
+                            <input type="hidden" name="PostId" value="@pID"/>
+                           
+                            <textarea class="form-control" cols="20"  name="CommentContent" placeholder="yorumunuz" rows="4"></textarea>
+                            <br>
+                            <button type="submit" class="btn btn-primary">gönder</button>
+                            @if (UId == 0)
+                            {
+                            <span class="errormessage text-warning">yorum yapabilmek için <a href="/giris-kullanici">giriş yapmalısınız</a></span>
+
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 mt-5 sidebar">
+                <div class="row">
+                    <div class="col-12 mb-5 mt-5">
+                        @await Component.InvokeAsync("GetSideBarCategories",new {count = 5})
+
+                        <div class="sidebar-element other">
+                            <div class="element-title">
+                                <h4 class="side-search">sitede arayın</h4>
+                            </div>
+                            <div class="element-item">
+                                <form class="form-wrapper cf" action="/post/search" method="get">
+                                    <input type="text" name="src" placeholder="Sitede arayın..." required>
+                                    <button type="submit">ara</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @await Component.InvokeAsync("LatestPost")
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section><!-- MAİN END -->

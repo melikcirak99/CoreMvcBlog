@@ -1,0 +1,15 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Tag>
+
+<div class="line">
+    <div>trending tags</div>
+</div>
+
+<ul class="tags">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="">@item.TagName</a>
+        </li>
+    }
+</ul>

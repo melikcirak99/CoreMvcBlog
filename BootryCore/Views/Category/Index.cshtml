@@ -1,0 +1,22 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Category>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ad</th>
+            <th>gönderi adedi</th>
+        </tr>
+    </thead>    
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+                <td>@item.CategoryName</td>
+                <td>@item.Posts.Count</td>
+            </tr>
+        }
+    </tbody>
+</table
